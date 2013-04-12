@@ -1,6 +1,29 @@
 require 'guillotine'
 require 'redis'
 
+
+# module Guillotine
+#   class Service
+#     # Public: Gets the full URL for a shortened code.
+#     #
+#     # code - A String short code.
+#     #
+#     # Returns 302 with the Location header pointing to the URL on a hit,
+#     # or 404 on a miss.
+#     def get(code)
+#       # Strip cosmetic filename extension
+#       code.gsub(/\.[a-z\d]+/i, "")
+#
+#       if url = @db.find(code)
+#         [302, {"Location" => parse_url(url).to_s}]
+#       else
+#         [404, {}, "No url found for #{code}"]
+#       end
+#     end
+#   end
+# end
+
+
 module Katana
     class App < Guillotine::App
       # use redis adapter with redistogo
@@ -33,6 +56,29 @@ module Katana
           end
         end
       end
+
+
+      get "/:code" do
+        # Strip cosmetic filename extension
+        code.gsub(/\.[a-z\d]+/i, "")
+        escaped = Addressable::URI.escape(params[:code])
+        status, head, body = settings.service.get(escaped)
+        [status, head, simple_escape(body)]
+      end
+
+
+      post "/" do
+        status, head, body = settings.service.create(params[:url], params[:code])
+        extension = params[:url].match(/(\.[a-z\d]+)$/i)[1] rescue ""
+        body += extension
+
+        if loc = head['Location']
+          head['Location'] = File.join(request.url, loc)
+        end
+
+        [status, head, simple_escape(body)]
+      end
+
 
       # helper methods
       helpers do
