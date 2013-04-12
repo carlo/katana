@@ -8,6 +8,12 @@ engine and its Redis adapter.
 If you set `HTTP_USER` and `HTTP_PASS` all methods except `GETs` require basic
 authentication.
 
+This fork (of the original
+[github.com/mrtazz/katana](https://github.com/mrtazz/katana)) keeps the
+filename extension and tacks it to the short URL.  For example,
+`http://example.com/pretty-long-url/image.gif` becomes
+`http://[domain]/abcd.gif`.  I like this better.
+
 ## Usage
 You can use it exactly as any other guillotine app:
 
