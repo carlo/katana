@@ -55,13 +55,12 @@ module Katana
       # Get the original path name extension (if there is any) and add it to
       # the new short URL.
       extension = URI.parse(params[:url]).path.match(/(\.[a-z\d]+)$/i)[1] rescue ""
-      head['Location'] += extension
 
       if loc = head['Location']
-        head['Location'] = File.join(request.url, loc)
+        head['Location'] = File.join(request.url, loc) + extension
       end
 
-      [status, head, simple_escape(loc)]
+      [status, head, simple_escape(loc || body)]
     end
 
 
