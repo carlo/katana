@@ -58,9 +58,10 @@ module Katana
 
       if loc = head['Location']
         head['Location'] = File.join(request.url, loc) + extension
+        body = head['Location']
       end
 
-      [status, head, simple_escape(loc || body)]
+      [status, head, simple_escape(body)]
     end
 
 
