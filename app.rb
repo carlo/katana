@@ -61,7 +61,7 @@ module Katana
         head['Location'] = File.join(request.url, loc)
       end
 
-      [status, head, simple_escape(body)]
+      [status, head, simple_escape(loc)]
     end
 
 
