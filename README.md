@@ -1,6 +1,8 @@
 # Katana
 
+
 ## Overview
+
 Opinionated personal URL shortener which runs on [Heroku][1] and uses [Redis to
 go][2] as a backend. Shortening is done through the fabulous [Guillotine][3]
 engine and its Redis adapter.
@@ -10,27 +12,32 @@ authentication.
 
 This fork (of the original
 [github.com/mrtazz/katana](https://github.com/mrtazz/katana)) keeps the
-filename extension and tacks it to the short URL.  For example,
+filename extension and tacks it onto the short URL.  For example,
 `http://example.com/pretty-long-url/image.gif` becomes
-`http://[domain]/abcd.gif`.  I like this better.
+`http://my.tiny.domain/abcd.gif`.  I like this better.
+
 
 ## Usage
+
 You can use it exactly as any other guillotine app:
 
-    curl -X POST http://sho.rt --user foo:bar -i -F"url=http://github.com" -F"code=gh"
+    curl -X POST http://my.tiny.domain --user foo:bar -i -F"url=http://github.com" -F"code=gh"
+
 
 ## Features
+
 - Authentication
 - Custom [Tweetbot][7] compatible endpoint
 - Gauges support (to come)
 
+
 ## Setup
 
-    git clone git://github.com/mrtazz/katana.git
+    git clone git://github.com/carlo/katana.git
     cd katana
     heroku create
-    heroku addons:add redistogo
-    heroku domains:add sho.rt
+    heroku addons:add myredis
+    heroku domains:add my.tiny.domain
     git push heroku master
     # for gauges support
     heroku config:add GAUGES_TOKEN="token"
@@ -39,7 +46,9 @@ You can use it exactly as any other guillotine app:
     heroku config:add HTTP_USER="theuser"
     heroku config:add HTTP_PASS="thepass"
 
+
 ### Tweetbot
+
 There is a custom endpoint which is compatible with how tweetbot expects custom
 URL shorteners to behave. Activate it by setting
 
@@ -47,11 +56,13 @@ URL shorteners to behave. Activate it by setting
 
 in your environment variables. After that you can add URLs with a `GET` to
 
-    http://sho.rt/api/create/?url=http://github.com
+    http://my.tiny.domain/api/create/?url=http://github.com
 
 Keep in mind that this endpoint is not authenticated.
 
+
 ## Thanks
+
 [@technoweenie][4] for the awesome guillotine and [@roidrage][5] for
 [s3itch][6] which somehow got me started wanting a personal URL shortener.
 

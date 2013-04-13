@@ -6,7 +6,7 @@ require 'uri'
 module Katana
   class App < Guillotine::App
     # use redis adapter with redistogo
-    uri = URI.parse(ENV["REDISTOGO_URL"])
+    uri = URI.parse(ENV["MYREDIS_URL"])
     REDIS = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
     adapter = Guillotine::Adapters::RedisAdapter.new REDIS
     set :service => Guillotine::Service.new(adapter, :strip_query => false,
