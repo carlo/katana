@@ -3,9 +3,9 @@
 
 ## Overview
 
-Opinionated personal URL shortener which runs on [Heroku][1] and uses [Redis to
-go][2] as a backend. Shortening is done through the fabulous [Guillotine][3]
-engine and its Redis adapter.
+Opinionated personal URL shortener which runs on [Heroku][1] and uses
+[MyRedis][2] as a backend. Shortening is done through the fabulous
+[Guillotine][3] engine and its Redis adapter.
 
 If you set `HTTP_USER` and `HTTP_PASS` all methods except `GETs` require basic
 authentication.
@@ -39,9 +39,11 @@ You can use it exactly as any other guillotine app:
     heroku addons:add myredis
     heroku domains:add my.tiny.domain
     git push heroku master
+
     # for gauges support
     heroku config:add GAUGES_TOKEN="token"
     heroku config:add GAUGES_GAUGE="gauge"
+    
     # for authentication
     heroku config:add HTTP_USER="theuser"
     heroku config:add HTTP_PASS="thepass"
@@ -49,8 +51,8 @@ You can use it exactly as any other guillotine app:
 
 ### Tweetbot
 
-There is a custom endpoint which is compatible with how tweetbot expects custom
-URL shorteners to behave. Activate it by setting
+There is a custom endpoint which is compatible with how tweetbot expects
+custom URL shorteners to behave. Activate it by setting
 
     TWEETBOT_API=true
 
@@ -67,7 +69,7 @@ Keep in mind that this endpoint is not authenticated.
 [s3itch][6] which somehow got me started wanting a personal URL shortener.
 
 [1]: http://heroku.com
-[2]: http://redistogo.com
+[2]: https://myredis.com
 [3]: https://github.com/technoweenie/guillotine
 [4]: https://twitter.com/technoweenie
 [5]: https://twitter.com/roidrage
